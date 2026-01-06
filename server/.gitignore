@@ -218,6 +218,5 @@ __marimo__/
 .vscode
 /data/seeding/vectordb
 /data/seeding/*
-# /data/vectordb/metadata.pkl
-# /data/vectordb/vifactcheck.index
+/data/vectordb/*
 venv
