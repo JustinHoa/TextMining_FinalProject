@@ -218,5 +218,5 @@ __marimo__/
 .vscode
 /data/seeding/vectordb
 /data/seeding/*
-/data/vectordb/*
+# /data/vectordb/*
 venv
