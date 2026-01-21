@@ -71,8 +71,15 @@ print(f"Train label distribution: {dict(sorted(train_label_dist.items()))}")
 # ============================================================
 # 4. TOKENIZER & PREPROCESSING
 # ============================================================
-model_ckpt = "vinai/phobert-base-v2"
-print(f"\nLoading tokenizer: {model_ckpt}")
+# Ưu tiên load local model nếu có
+LOCAL_MODEL_PATH = "./phobert-base-v2"
+if os.path.exists(LOCAL_MODEL_PATH):
+    model_ckpt = LOCAL_MODEL_PATH
+    print(f"\n✅ Loading LOCAL model: {model_ckpt}")
+else:
+    model_ckpt = "vinai/phobert-base-v2"
+    print(f"\n⬇️ Loading HuggingFace model: {model_ckpt}")
+
 tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
 
 def preprocess_function(examples):
@@ -88,13 +95,16 @@ def preprocess_function(examples):
     )
 
 print("Tokenizing dataset...")
+# QUAN TRỌNG: Chỉ xóa các cột không cần, GIỮ LẠI 'label'
+columns_to_remove = [col for col in dataset['train'].column_names if col != 'label']
 tokenized_datasets = dataset.map(
     preprocess_function, 
     batched=True,
-    remove_columns=dataset['train'].column_names  # Xóa các cột không cần thiết
+    remove_columns=columns_to_remove
 )
 
 print(f"Tokenized dataset: {tokenized_datasets}")
+print(f"Columns in tokenized dataset: {tokenized_datasets['train'].column_names}")
 
 # ============================================================
 # 5. ĐỊNH NGHĨA METRICS
@@ -183,8 +193,7 @@ print(f"  - Output dir: {output_dir}\n")
 # ============================================================
 data_collator = DataCollatorWithPadding(
     tokenizer=tokenizer,
-    padding=True,  # Dynamic padding trong batch
-    max_length=256
+    padding=True  # Dynamic padding trong batch (không cần max_length)
 )
 
 # ============================================================
