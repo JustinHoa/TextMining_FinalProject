@@ -398,6 +398,38 @@ def predict_topic(text, return_probs=False):
         return id2label[pred_idx], confidence, probs[0].cpu().numpy()
     return id2label[pred_idx], confidence
 
+def predict_topk(text, k=3):
+    inputs = tokenizer(
+        text,
+        return_tensors="pt",
+        truncation=True,
+        max_length=256,
+    ).to(device)
+
+    with torch.no_grad():
+        outputs = model(**inputs)
+        logits = outputs.logits
+        probs = torch.softmax(logits, dim=-1)[0]
+
+    top_probs, top_indices = torch.topk(probs, k=min(k, probs.shape[-1]))
+    results = []
+    for p, idx in zip(top_probs.tolist(), top_indices.tolist()):
+        results.append({
+            "label": id2label[idx],
+            "prob": float(p),
+            "label_id": int(idx),
+        })
+
+    # Uncertainty signals: entropy + margin
+    eps = 1e-12
+    entropy = float(-(probs * torch.log(probs + eps)).sum().item())
+    margin = float((top_probs[0] - top_probs[1]).item()) if len(top_probs) > 1 else float(top_probs[0].item())
+    return {
+        "topk": results,
+        "entropy": entropy,
+        "margin": margin,
+    }
+
 # Test samples covering all merged classes
 test_samples = [
     "Bộ Giáo dục công bố điểm chuẩn đại học năm 2024",
@@ -417,6 +449,14 @@ for i, text in enumerate(test_samples, 1):
     pred, conf = predict_topic(text)
     print(f"\n{i}. Text: {text}")
     print(f"   Predicted: {pred} (confidence: {conf:.2%})")
+
+print("\nSample top-k predictions (for retrieval fallback):")
+for i, text in enumerate(test_samples, 1):
+    out = predict_topk(text, k=3)
+    topk_str = ", ".join([f"{x['label']}={x['prob']:.2%}" for x in out["topk"]])
+    print(f"\n{i}. Text: {text}")
+    print(f"   Top-3: {topk_str}")
+    print(f"   Entropy: {out['entropy']:.4f} | Margin: {out['margin']:.4f}")
 
 print("\n" + "=" * 60)
 print("✅ DONE!")
