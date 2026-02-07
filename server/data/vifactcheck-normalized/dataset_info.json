@@ -1,0 +1,106 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "vifactcheck-normalized",
+  "dataset_size": 35089463,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/hihihohohehe/vifactcheck-normalized@b325460e474232641980b1b4b36bafd8eb276887/data/train-00000-of-00001.parquet": {
+      "num_bytes": 11572174,
+      "checksum": null
+    },
+    "hf://datasets/hihihohohehe/vifactcheck-normalized@b325460e474232641980b1b4b36bafd8eb276887/data/dev-00000-of-00001.parquet": {
+      "num_bytes": 1536477,
+      "checksum": null
+    },
+    "hf://datasets/hihihohohehe/vifactcheck-normalized@b325460e474232641980b1b4b36bafd8eb276887/data/test-00000-of-00001.parquet": {
+      "num_bytes": 3285014,
+      "checksum": null
+    }
+  },
+  "download_size": 16393665,
+  "features": {
+    "Unnamed: 0": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "index": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Statement": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Context": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "annotation_id": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Topic": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Author": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Url": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "labels": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Evidence": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "New Topic 1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Merged Topic": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "label_id": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 51483128,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 24652123,
+      "num_examples": 5062,
+      "dataset_name": "vifactcheck-normalized"
+    },
+    "dev": {
+      "name": "dev",
+      "num_bytes": 3420480,
+      "num_examples": 723,
+      "dataset_name": "vifactcheck-normalized"
+    },
+    "test": {
+      "name": "test",
+      "num_bytes": 7016860,
+      "num_examples": 1447,
+      "dataset_name": "vifactcheck-normalized"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
