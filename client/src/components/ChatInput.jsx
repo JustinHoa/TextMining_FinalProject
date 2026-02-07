@@ -1,30 +1,32 @@
 import { useState } from 'react'
 
-function ChatInput({ onSendMessage }) {
+function ChatInput({ onSendMessage, disabled = false }) {
   const [input, setInput] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!input.trim()) return
+    if (!input.trim() || disabled) return
     onSendMessage(input)
     setInput('')
   }
 
   return (
-    <div className="border border-stone-400 rounded-2xl p-2">
+    <div className="border border-gray-300 rounded-2xl p-2 bg-white shadow-lg">
       <form onSubmit={handleSubmit} className="flex space-x-2">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="bg-stone-200 text-black flex-1 px-4 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-600"
+          placeholder="Nhập tuyên bố hoặc tin tức cần kiểm tra..."
+          disabled={disabled}
+          className="bg-gray-50 text-gray-800 flex-1 px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-800 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all"
         />
         <button
           type="submit"
-          className=" px-6 py-2 bg-yellow-600 text-white rounded-2xl hover:bg-yellow-500 focus:outline-none focus:outline-2 focus:outline-amber-600 active:scale-95"
+          disabled={disabled}
+          className="px-6 py-3 bg-yellow-600 text-white rounded-2xl hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-800 focus:ring-offset-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 transition-all font-medium shadow-md"
         >
-          Send
+          Kiểm tra
         </button>
       </form>
     </div>
