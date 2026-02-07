@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sys
 import os
@@ -11,6 +12,13 @@ from services.retrieving import FactCheckSearcher
 from services.llm_service import LLMFactChecker
 
 app = FastAPI(title="ViFactCheck API", version="1.0.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # hoặc ["*"] khi dev
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- GLOBAL SERVICES ---
 searcher = None
@@ -88,7 +96,7 @@ async def check_claim(request: CheckRequest):
             "evidence": evidence_list
         }
     except Exception as e:
-        print(f"❌ Error during processing: {e}")
+        print(f"Error during processing: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
