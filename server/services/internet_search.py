@@ -164,7 +164,7 @@ def main():
 
     searcher = InternetSearcher()
     query = "Vụ cháy chung cư mini Khương Hạ nguyên nhân do đâu?"
-    results = searcher.search(query, k=3)
+    results = searcher.search(query, k=5)
     
     print(f"\n=== FOUND {len(results)} RESULTS ===")
     for i, result in enumerate(results):

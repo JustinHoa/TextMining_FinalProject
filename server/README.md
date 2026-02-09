@@ -212,7 +212,7 @@ You can adjust search parameters in `main.py`:
 ```python
 evidence_list = searcher.search(
     claim, 
-    k=3,           # Number of results to retrieve
+    k=5,           # Number of results to retrieve
     threshold=0.65 # Similarity threshold (0.0 - 1.0)
 )
 ```

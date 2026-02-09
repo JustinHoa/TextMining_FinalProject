@@ -37,7 +37,7 @@ class FactCheckSearcher:
         else:
             self.internet_searcher = None
 
-    def _search_local(self, query_vec, k=3):
+    def _search_local(self, query_vec, k=5):
         """Search in DB with Deduplication logic (Filter duplicate articles)"""
         try:
             # Get extra results to filter duplicates (3x k)
@@ -78,7 +78,7 @@ class FactCheckSearcher:
             print(f"⚠️ Lỗi Local Search: {e}")
             return []
 
-    def search(self, query, k=3, threshold=0.65):
+    def search(self, query, k=5, threshold=0.65):
         print(f"\n🔎 Searching for: '{query}'")
         try:
             # B1: Embed query
@@ -139,7 +139,7 @@ if __name__ == "__main__":
         # Test query
         # query = "Vụ cháy chung cư mini Khương Hạ nguyên nhân do đâu?"
         query = "Phó Thủ tướng Trần Hồng Hà chúc mừng Đài Truyền hình Việt Nam."
-        results = searcher.search(query, k=3, threshold=0.65) # Increase threshold to force it to go to Internet test
+        results = searcher.search(query, k=5, threshold=0.65) # Increase threshold to force it to go to Internet test
         
         if results:
             print("\n=== RETURNED RESULTS ===")
