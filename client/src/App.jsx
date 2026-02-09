@@ -51,7 +51,15 @@ function App() {
   }
 
   return (
-    <div className="p-4 items-center bg-gradient-to-br from-gray-50 to-gray-100 gap-4 flex flex-col w-screen h-screen">
+    <div
+      className="p-4 items-center bg-gradient-to-br from-gray-50 to-gray-100 gap-4 flex flex-col w-screen h-screen"
+      style={{ 
+        backgroundImage: 'url(/bg-tet.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'top',
+        backgroundRepeat: 'no-repeat'
+      }}
+    > 
       {/* Nav Bar */}
       <NavBar />
 

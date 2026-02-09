@@ -6,7 +6,11 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'tet': "url('/bg-tet.jpg')",
+      }
+    },
   },
   plugins: [],
 }
