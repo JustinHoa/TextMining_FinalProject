@@ -83,7 +83,7 @@ async def check_claim(request: CheckRequest):
     try:
         # 1. Retrieve Evidence
         # Threshold 0.65 as discussed
-        evidence_list = searcher.search(claim, k=5, threshold=0.5)
+        evidence_list = searcher.search(claim, k=5, threshold=0.65)
         
         # 2. Check with LLM
         llm_result = llm_checker.verify_claim(claim, evidence_list)
